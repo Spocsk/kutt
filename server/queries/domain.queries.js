@@ -4,7 +4,9 @@ const knex = require("../knex");
 const env = require("../env");
 
 async function find(match) {
-  if (match.address && env.REDIS_ENABLED) {
+  const canUseAddressCache = match.address && Object.keys(match).length === 1;
+
+  if (canUseAddressCache && env.REDIS_ENABLED) {
     const cachedDomain = await redis.client.get(redis.key.domain(match.address));
     if (cachedDomain) return JSON.parse(cachedDomain);
   }
