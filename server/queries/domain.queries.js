@@ -61,12 +61,9 @@ async function add(params) {
 }
 
 async function update(match, update) {
-  // if the domains' adddress is changed,
-  // make sure to delete the original domains from cache 
-  let domains = []
-  if (env.REDIS_ENABLED && update.address) {
-    domains = await knex("domains").select("*").where(match);
-  }
+  const domains = env.REDIS_ENABLED
+    ? await knex("domains").select("*").where(match)
+    : [];
   
   await knex("domains")
     .where(match)
