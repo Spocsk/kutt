@@ -249,6 +249,19 @@ async function confirmDomainBan(req, res) {
   });
 }
 
+async function confirmDomainUnban(req, res) {
+  const domain = await query.domain.find({
+    id: req.query.id
+  });
+  if (!domain) {
+    throw new utils.CustomError("Could not find the domain.", 400);
+  }
+  res.render("partials/admin/dialog/unban_domain", {
+    id: domain.id,
+    address: domain.address,
+  });
+}
+
 async function confirmDomainDeleteAdmin(req, res) {
   const domain = await query.domain.find({
     id: req.query.id
@@ -312,6 +325,7 @@ module.exports = {
   confirmDomainBan,
   confirmDomainDelete,
   confirmDomainDeleteAdmin,
+  confirmDomainUnban,
   confirmLinkBan,
   confirmLinkDelete,
   confirmUserBan,

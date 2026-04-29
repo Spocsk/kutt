@@ -316,6 +316,17 @@ button.action.ban svg {
   stroke: hsl(10, 100%, 40%);
 }
 
+a.button.action.unban,
+button.action.unban {
+  background: hsl(130, 65%, 94%);
+}
+
+a.button.action.unban svg,
+button.action.unban svg {
+  stroke-width: 2.5;
+  stroke: hsl(130, 50%, 35%);
+}
+
 a.button.action.password sv,
 button.action.password svg,
 a.button.action.banned svg,

@@ -1,7 +1,15 @@
 <td class="actions domains-actions">
   {{#if banned}}
-    <button class="action banned" disabled="true" data-tooltip="Banned">
-      {{> icons/stop}}
+    <button 
+      class="action unban" 
+      hx-on:click='openDialog("admin-table-dialog")' 
+      hx-get="/confirm-domain-unban" 
+      hx-target="#admin-table-dialog .content-wrapper" 
+      hx-indicator="#admin-table-dialog" 
+      hx-vals='{"id":"{{id}}"}'
+      data-tooltip="Unban domain"
+    >
+      {{> icons/check}}
     </button>
   {{/if}}
   {{#unless banned}}

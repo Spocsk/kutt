@@ -337,6 +337,15 @@ const banDomain = [
     .isBoolean()
 ];
 
+const unbanDomain = [
+  param("id", "ID is invalid.")
+    .exists({
+      checkFalsy: true,
+      checkNull: true
+    })
+    .isNumeric()
+];
+
 const createUser = [
   body("password", "Password is not valid.")
     .exists({ checkFalsy: true, checkNull: true })
@@ -561,4 +570,5 @@ module.exports = {
   resetPassword,
   signup,
   signupEmailTaken,
+  unbanDomain,
 }

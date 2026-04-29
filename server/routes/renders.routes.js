@@ -183,6 +183,13 @@ router.get(
   asyncHandler(renders.confirmDomainBan)
 );
 
+router.get(
+  "/confirm-domain-unban", 
+  locals.noLayout,
+  asyncHandler(auth.jwt),
+  asyncHandler(auth.admin), 
+  asyncHandler(renders.confirmDomainUnban)
+);
 
 router.get(
   "/confirm-domain-delete-admin", 

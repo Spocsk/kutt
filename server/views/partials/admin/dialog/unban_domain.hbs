@@ -1,0 +1,29 @@
+<div class="content">
+  <h2>Unban domain?</h2>
+  <p>
+    Are you sure do you want to unban the domain &quot;<b>{{address}}</b>&quot;?
+  </p>
+  <div class="buttons">
+    <button type="button" hx-on:click="closeDialog()">Cancel</button>
+    <button 
+      type="button"
+      class="confirm" 
+      hx-post="/api/domains/admin/unban/{id}" 
+      hx-ext="path-params" 
+      hx-vals='{"id":"{{id}}"}' 
+      hx-target="closest .content" 
+      hx-swap="none" 
+      hx-indicator="closest .content"
+      hx-select-oob="#dialog-error"
+    >
+      <span>{{> icons/check}}</span>
+      Unban
+    </button>
+    {{> icons/spinner}}
+  </div>
+  <div id="dialog-error">
+    {{#if error}}
+      <p class="error">{{error}}</p>
+    {{/if}}
+  </div>
+</div>

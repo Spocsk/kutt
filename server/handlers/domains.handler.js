@@ -203,6 +203,43 @@ async function ban(req, res) {
   return res.status(200).send({ message: "Banned domain successfully." });
 }
 
+async function unban(req, res) {
+  const { id } = req.params;
+
+  const domain = await query.domain.find({ id });
+
+  if (!domain) {
+    throw new CustomError("No domain has been found.", 400);
+  }
+
+  if (!domain.banned) {
+    throw new CustomError("Domain is not banned.", 400);
+  }
+
+  const [updatedDomain] = await query.domain.update(
+    { id },
+    {
+      banned: false,
+      banned_by_id: null
+    }
+  );
+
+  if (!updatedDomain) {
+    throw new CustomError("Couldn't unban domain.", 500);
+  }
+
+  if (req.isHTML) {
+    res.setHeader("HX-Reswap", "outerHTML");
+    res.setHeader("HX-Trigger", "reloadMainTable");
+    res.render("partials/admin/dialog/unban_domain_success", {
+      address: domain.address,
+    });
+    return;
+  }
+
+  return res.status(200).send({ message: "Unbanned domain successfully." });
+}
+
 module.exports = {
   add,
   addAdmin,
@@ -210,4 +247,5 @@ module.exports = {
   getAdmin,
   remove,
   removeAdmin,
+  unban,
 }
