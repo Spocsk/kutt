@@ -41,6 +41,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/health", routes.health);
+
 // use cookie sessions only when OIDC is enabled
 // because only OIDC is using it
 if (env.OIDC_ENABLED) {
